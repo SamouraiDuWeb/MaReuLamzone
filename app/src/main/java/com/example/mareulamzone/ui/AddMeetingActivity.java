@@ -38,6 +38,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     MeetingApiService mMeetingApiService;
     MeetingRoom meetingRoomChoose;
     User userToAdd;
+    List<String> listEmail;
 
     Date submitDate;
     ArrayList<User> listParticipant = new ArrayList<>();
@@ -62,7 +63,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         initSpinnerRoom();
 
         //init add user to meeting
-        initAddUserToMeeting();
+        //initAddUserToMeeting();
 
         btnAddMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,33 +78,37 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-    private void initAddUserToMeeting() {
+//    private void initAddUserToMeeting() {
+//
+//        List<User> list = new ArrayList<>();
+//        for (User user : mMeetingApiService.getUsers()) {
+//            list.add(user);
+//        }
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, listEmail);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spAddUserToMeeting.setAdapter(adapter);
+//        spAddUserToMeeting.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                userToAdd = mMeetingApiService.getUsers().get(position);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//    }
 
-        List<String> listEmail = mMeetingApiService.getAllEmails();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, listEmail);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spAddUserToMeeting.setAdapter(adapter);
-        spAddUserToMeeting.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                userToAdd = mMeetingApiService.getUsers().get(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        btnAddUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
-    }
+//    private void checkIfUserValid(ArrayList<User> users) {
+//
+//        for(String i : mMeetingApiService.getAllEmails()){
+//            if(listEmail.getEmail().contains(i) && !users.contains(mMeetingApiService.getUser(i))){
+//                users.add(mMeetingApiService.getUser(i));
+//            }
+//        }
+//    }
 
 
     private void initDatePicker() {

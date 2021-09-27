@@ -12,4 +12,7 @@
         <item>Salle 09</item>
         <item>Salle 10</item>
     </string-array>
+
+<!--    TODO-->
+<!--    <string-array name="participants"-->
 </resources>
