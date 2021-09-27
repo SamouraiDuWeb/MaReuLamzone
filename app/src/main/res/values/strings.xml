@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MaReuLamzone</string>
+    <string name="add_meeting">add meeting</string>
+    <string name="meeting_name">Nom de la réunion</string>
+    <string name="salle_de_r_union">Salle de réunion</string>
+    <string name="sujet_de_la_r_union">Sujet de la réunion</string>
+    <string name="date_de_la_r_union">Date de la réunion</string>
+    <string name="participants_la_r_union">Participants à la réunion</string>
+    <string name="email">email</string>
+    <string name="ajouter_un_participant">Ajouter un participant</string>
+    <string name="cr_er_la_r_union">Créer la réunion</string>
+    <string name="dur_e_de_la_r_union">Durée de la réunion</string>
+    <string name="email_du_nouveau_participant">Email du nouveau participant</string>
+</resources>

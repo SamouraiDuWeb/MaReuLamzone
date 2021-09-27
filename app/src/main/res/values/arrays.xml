@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="salle_de_r_union">
+        <item>Salle 01</item>
+        <item>Salle 02</item>
+        <item>Salle 03</item>
+        <item>Salle 04</item>
+        <item>Salle 05</item>
+        <item>Salle 06</item>
+        <item>Salle 07</item>
+        <item>Salle 08</item>
+        <item>Salle 09</item>
+        <item>Salle 10</item>
+    </string-array>
+</resources>

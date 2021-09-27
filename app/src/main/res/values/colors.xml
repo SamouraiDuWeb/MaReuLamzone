@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="mainBlue">#4e92df</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="bordeaux">#ce0a24</color>
+    <color name="primaryColor">#4e92df</color>
+    <color name="primaryLightColor">#86c2ff</color>
+    <color name="primaryDarkColor">#0065ad</color>
+    <color name="secondaryColor">#2e003f</color>
+    <color name="secondaryLightColor">#5a2a6a</color>
+    <color name="secondaryDarkColor">#11001b</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#ffffff</color>
+    <color name="textcolor">#3f445e</color>
+    <color name="salle_01">#bb3535</color>
+    <color name="salle_02">#d48b2a</color>
+    <color name="salle_03">#92b469</color>
+    <color name="salle_04">#518e71</color>
+    <color name="salle_05">#276479</color>
+    <color name="salle_06">#9070c1</color>
+    <color name="salle_07">#5d500a</color>
+    <color name="salle_08">#1a338e</color>
+    <color name="salle_09">#a13c85</color>
+    <color name="salle_10">#b72f2a</color>
+
+</resources>
