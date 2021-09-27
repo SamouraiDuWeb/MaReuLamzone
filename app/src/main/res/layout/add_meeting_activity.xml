@@ -93,13 +93,10 @@
             android:textStyle="bold"
             android:layout_marginBottom="20dp" />
 
-        <EditText
-            android:id="@+id/et_add_user_to_meeting"
+        <Spinner
+            android:id="@+id/sp_add_user_to_meeting"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="@string/ajouter_un_participant"
-            android:inputType="text"
-            android:autofillHints="emailAddress"
             android:gravity="center"
             android:layout_marginBottom="10dp"/>
 
