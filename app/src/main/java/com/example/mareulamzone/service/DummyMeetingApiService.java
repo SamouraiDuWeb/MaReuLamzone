@@ -63,7 +63,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public void createMeeting(int id, String name, Date date, MeetingRoom room, String subject, ArrayList<User> users, int duration) {
+    public void createMeeting(int id, String name, Date date, MeetingRoom room, String subject, List<String> users, String duration) {
 
         Meeting meeting = new Meeting(id, name, date, duration, room, subject, users);
         meetings.add(meeting);

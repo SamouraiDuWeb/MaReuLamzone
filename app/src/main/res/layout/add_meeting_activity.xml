@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"
+                android:textColor="@color/textcolor"
                 android:entries="@array/salle_de_r_union"
                 android:layout_marginStart="10dp"/>
 
@@ -69,7 +70,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
             <DatePicker
                 android:id="@+id/dp_event"
@@ -80,6 +82,14 @@
                 android:id="@+id/tp_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <Spinner
+                android:id="@+id/sp_meeting_duration"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:textColor="@color/textcolor"
+                android:entries="@array/duration"/>
         </LinearLayout>
 
         <TextView
@@ -98,6 +108,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/textcolor"
             android:layout_marginBottom="10dp"/>
 
         <Button
@@ -120,6 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="21dp"
+            android:layout_marginBottom="40dp"
             android:textColor="@color/textcolor"
             android:textStyle="bold"
             android:text="@string/cr_er_la_r_union" />

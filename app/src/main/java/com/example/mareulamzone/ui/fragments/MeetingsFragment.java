@@ -1,32 +1,29 @@
 package com.example.mareulamzone.ui.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mareulamzone.R;
-import com.example.mareulamzone.ui.AddMeetingActivity;
-import com.example.mareulamzone.ui.MeetingsActivity;
-import com.example.mareulamzone.ui.adapters.MyMeetingsRecyclerViewAdapter;
-import com.example.mareulamzone.ui.placeholder.PlaceholderContent;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A fragment representing a list of Items.
- */
+import com.example.mareulamzone.R;
+import com.example.mareulamzone.di.DI;
+import com.example.mareulamzone.model.Meeting;
+import com.example.mareulamzone.service.DummyMeetingApiService;
+import com.example.mareulamzone.service.MeetingApiService;
+import com.example.mareulamzone.ui.adapters.MyMeetingsRecyclerViewAdapter;
+
+import java.util.List;
+
 public class MeetingsFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
+    private MeetingApiService mApiService = DI.getMeetingApiService();
 
 
     public MeetingsFragment() {
@@ -42,23 +39,20 @@ public class MeetingsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_meetings_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyMeetingsRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            List<Meeting> mMeetings = mApiService.getMeetings();
+            System.out.println("////////////////MEETINGS///////////////" + mMeetings);
+            Context context = this.getContext();
+            RecyclerView recyclerView = view.findViewById(R.id.list);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            MyMeetingsRecyclerViewAdapter mAdapter = new MyMeetingsRecyclerViewAdapter(mMeetings);
+            recyclerView.setAdapter(mAdapter);
         }
-
-
 
         return view;
     }

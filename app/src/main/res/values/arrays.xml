@@ -12,7 +12,9 @@
         <item>Salle 09</item>
         <item>Salle 10</item>
     </string-array>
-
-<!--    TODO-->
-<!--    <string-array name="participants"-->
+    <string-array name="duration">
+        <item>30 min</item>
+        <item>1 heure</item>
+        <item>2 heures</item>
+    </string-array>
 </resources>

@@ -1,5 +1,7 @@
 package com.example.mareulamzone.ui;
 
+import static com.example.mareulamzone.service.LamzoneGenerator.USERS;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,8 +11,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareulamzone.R;
@@ -18,6 +22,7 @@ import com.example.mareulamzone.di.DI;
 import com.example.mareulamzone.model.MeetingRoom;
 import com.example.mareulamzone.model.User;
 import com.example.mareulamzone.service.MeetingApiService;
+import com.example.mareulamzone.ui.adapters.UserRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +47,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     Date submitDate;
     ArrayList<User> listParticipant = new ArrayList<>();
+    String meetingDuration;
 
     long dateInMillis = 0;
     int year1 = -1, month1, dayOfMonth1, hourOfDay1 = -1, minute1;
@@ -53,63 +59,118 @@ public class AddMeetingActivity extends AppCompatActivity {
         setContentView(R.layout.add_meeting_activity);
 
         mMeetingApiService = DI.getMeetingApiService();
+        listParticipant = new ArrayList<>();
+        listEmail = new ArrayList<>();
 
         initView();
 
         //init Date Picker
         initDatePicker();
 
+        //initDurationSpinner
+        initDurationSpinner();
+
         //init spinner meeting room
         initSpinnerRoom();
 
         //init add user to meeting
-        //initAddUserToMeeting();
+        initAddUserToMeeting();
 
-        btnAddMeeting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // check user entries and add event to list
-                if (checkUserEntries()) {
-                    //meetingApiService.createMeeting
+        btnAddMeeting.setOnClickListener(v -> {
+            Toast.makeText(AddMeetingActivity.this, "Checking...", Toast.LENGTH_SHORT);
+            System.out.println("Checking...");
+            // check user entries and add event to list
+            if (checkUserEntries()) {
+                mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
+                        etSubjectMeeting.getText().toString(),
+                        submitDate,
+                        meetingRoomChoose,
+                        etSubjectMeeting.getText().toString(),
+                        listEmail, meetingDuration);
 
-
-                }
+                Toast.makeText(AddMeetingActivity.this, "Meeting sauvegardé", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
 
-//    private void initAddUserToMeeting() {
-//
-//        List<User> list = new ArrayList<>();
-//        for (User user : mMeetingApiService.getUsers()) {
-//            list.add(user);
-//        }
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, listEmail);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spAddUserToMeeting.setAdapter(adapter);
-//        spAddUserToMeeting.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//                userToAdd = mMeetingApiService.getUsers().get(position);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-//    }
+    private void initDurationSpinner() {
 
-//    private void checkIfUserValid(ArrayList<User> users) {
-//
-//        for(String i : mMeetingApiService.getAllEmails()){
-//            if(listEmail.getEmail().contains(i) && !users.contains(mMeetingApiService.getUser(i))){
-//                users.add(mMeetingApiService.getUser(i));
-//            }
-//        }
-//    }
+        List<String> durationList = new ArrayList<>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, durationList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spMeetingRoom.setAdapter(adapter);
+        spMeetingRoom.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        meetingDuration = "30 minutes";
+                        break;
+                    case 1:
+                        meetingDuration = "1 heure";
+                        break;
+                    case 2:
+                        meetingDuration = "2 heures";
+                    default:
+                        meetingDuration = "30 minutes";
+                        break;
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void addUserToList(User userToAdd) {
+
+        listEmail.add(userToAdd.getEmail());
+        System.out.println("**********" + listEmail);
+        UserRecyclerViewAdapter adapterRv = new UserRecyclerViewAdapter(listEmail);
+        rvParticipant.setAdapter(adapterRv);
+        rvParticipant.setLayoutManager(new LinearLayoutManager(this));
+        Toast.makeText(this, "Sauvegardé !", Toast.LENGTH_SHORT).show();
+    }
+
+    private void initAddUserToMeeting() {
+
+        List<String> list = new ArrayList<>();
+
+        for (int i = 0; i < USERS.size(); i++) {
+
+            list.add(USERS.get(i).getEmail());
+        }
+
+        System.out.println("/////////////////////////" + list);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spAddUserToMeeting.setAdapter(adapter);
+        spAddUserToMeeting.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                userToAdd = mMeetingApiService.getUsers().get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        btnAddUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                addUserToList(userToAdd);
+            }
+        });
+
+    }
 
     private void initDatePicker() {
 
@@ -175,8 +236,24 @@ public class AddMeetingActivity extends AppCompatActivity {
         //check timepicker
         //check spinner duration
         //check email user to meeting
-
-        return false;
+        if (meetingRoomChoose == null) {
+            Toast.makeText(AddMeetingActivity.this, "Error meetingroom", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (etSubjectMeeting == null) {
+            Toast.makeText(AddMeetingActivity.this, "Error subject", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (submitDate == null) {
+            Toast.makeText(AddMeetingActivity.this, "Error date", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (spMeetingDuration == null) {
+            Toast.makeText(AddMeetingActivity.this, "Error duration", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (listEmail == null) {
+            Toast.makeText(AddMeetingActivity.this, "Error list email", Toast.LENGTH_LONG).show();
+            return false;
+        } else {
+             return true;
+        }
     }
 
     private void initView() {

@@ -2,6 +2,9 @@ package com.example.mareulamzone.service;
 
 import android.graphics.Color;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.mareulamzone.R;
 import com.example.mareulamzone.model.Meeting;
 import com.example.mareulamzone.model.MeetingRoom;
@@ -9,8 +12,11 @@ import com.example.mareulamzone.model.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public abstract class LamzoneGenerator {
 
@@ -41,7 +47,7 @@ public abstract class LamzoneGenerator {
     );
 
     public static List<Meeting> MEETINGS = Arrays.asList(
-            new Meeting(1, "Example Réunion", new Date(), 45 , MEETINGROOMS.get(1),"Weekly", new ArrayList<>(Arrays.asList(USERS.get(1), USERS.get(2))))
+//            new Meeting(1, "Example Réunion", new Date(), "30 minutes", MEETINGROOMS.get(1), "Weekly",new ArrayList<String>(li))
     );
 
     static List<Meeting> generateMeetings() {

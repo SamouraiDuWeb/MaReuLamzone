@@ -1,62 +1,85 @@
 package com.example.mareulamzone.ui.adapters;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mareulamzone.R;
-import com.example.mareulamzone.databinding.FragmentMeetingsBinding;
-import com.example.mareulamzone.ui.placeholder.PlaceholderContent.PlaceholderItem;
+import com.example.mareulamzone.di.DI;
+import com.example.mareulamzone.model.Meeting;
+import com.example.mareulamzone.service.MeetingApiService;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<Meeting> mMeetings;
+    private MeetingApiService mApiService;
+    public MyMeetingsRecyclerViewAdapter(List<Meeting> items) {
+        mMeetings = items;
+    }
 
-    public MyMeetingsRecyclerViewAdapter(List<PlaceholderItem> items) {
-        mValues = items;
+    @NonNull
+    @Override
+    public MyMeetingsRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fragment_meetings, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public void onBindViewHolder(@NonNull MyMeetingsRecyclerViewAdapter.ViewHolder holder, int position) {
 
-        return new ViewHolder(FragmentMeetingsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        mApiService = DI.getMeetingApiService();
+        final Meeting meeting = mMeetings.get(holder.getAbsoluteAdapterPosition());
 
-    }
+        Date date = meeting.getDate();
+        DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.FRANCE);
+        String strDate = dateFormat.format(date);
 
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-    }
+        String nameMeeting = meeting.getName() + " - " + strDate + " - " + meeting.getSubject();
+
+        List currentMeetingUsersEmail = meeting.getUsers();
+
+        holder.name.setText(nameMeeting);
+        holder.meeting_users.setText(currentMeetingUsersEmail.toString());
+
+        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mApiService.removeMeeting(meeting);
+                notifyItemRemoved(holder.getAbsoluteAdapterPosition());
+                notifyItemRangeChanged(holder.getAbsoluteAdapterPosition(),getItemCount());
+            }
+        });
+        }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public PlaceholderItem mItem;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView name, meeting_users;
+        ImageView image;
+        ImageButton mDeleteButton;
 
-        public ViewHolder(FragmentMeetingsBinding binding) {
-            super(binding.getRoot());
-            mIdView = binding.itemListName;
-            mContentView = binding.itemListName;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+        ViewHolder(View view) {
+            super(view);
+            name = view.findViewById(R.id.item_list_name);
+            image = view.findViewById(R.id.item_list_color);
+            mDeleteButton = view.findViewById(R.id.item_list_delete_button);
+            meeting_users = view.findViewById(R.id.item_list_user);
         }
     }
+
 }

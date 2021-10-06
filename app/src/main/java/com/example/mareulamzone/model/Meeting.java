@@ -8,12 +8,12 @@ public class Meeting {
     private int id;
     private String name;
     private Date date;
-    private int duration;
+    private String duration;
     private MeetingRoom room;
     private String subject;
-    private List<User> users;
+    private List<String> users;
 
-    public Meeting(int id, String name, Date date, int duration, MeetingRoom room, String subject, List<User> users) {
+    public Meeting(int id, String name, Date date, String duration, MeetingRoom room, String subject, List<String> users) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -47,11 +47,11 @@ public class Meeting {
         this.date = dateStart;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
@@ -71,11 +71,11 @@ public class Meeting {
         this.subject = subject;
     }
 
-    public List<User> getUsers() {
+    public List<String> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(List<String> users) {
         this.users = users;
     }
 }
