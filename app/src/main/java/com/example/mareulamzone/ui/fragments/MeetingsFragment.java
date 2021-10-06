@@ -17,6 +17,9 @@ import com.example.mareulamzone.service.DummyMeetingApiService;
 import com.example.mareulamzone.service.MeetingApiService;
 import com.example.mareulamzone.ui.adapters.MyMeetingsRecyclerViewAdapter;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MeetingsFragment extends Fragment {
@@ -42,6 +45,18 @@ public class MeetingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_meetings_list, container, false);
+
+        MeetingApiService mMeetingApiService = DI.getMeetingApiService();
+        ArrayList listTest = new ArrayList<String>();
+        listTest.add("jean");
+        listTest.add("random");
+
+        mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
+                "sujet test",
+                new Date(Calendar.getInstance().getTimeInMillis()),
+                mMeetingApiService.getMeetingRooms().get(1),
+                "sujet test",
+                 listTest, "30 minutes");
 
         // Set the adapter
         if (view instanceof RecyclerView) {
