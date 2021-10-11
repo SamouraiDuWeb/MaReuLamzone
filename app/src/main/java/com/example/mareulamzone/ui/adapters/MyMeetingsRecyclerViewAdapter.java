@@ -1,5 +1,9 @@
 package com.example.mareulamzone.ui.adapters;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +18,7 @@ import com.example.mareulamzone.R;
 import com.example.mareulamzone.di.DI;
 import com.example.mareulamzone.model.Meeting;
 import com.example.mareulamzone.service.MeetingApiService;
+import com.example.mareulamzone.ui.DetailMeetingsActivity;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -52,6 +57,16 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
 
         holder.name.setText(nameMeeting);
         holder.meeting_users.setText(currentMeetingUsersEmail.toString());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), DetailMeetingsActivity.class);
+                intent.putExtra("currentMeeting", (Parcelable) meeting);
+                startActivity(v.getContext(), intent, null);
+            }
+        });
 
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override

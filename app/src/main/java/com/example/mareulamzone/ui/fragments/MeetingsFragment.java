@@ -56,18 +56,18 @@ public class MeetingsFragment extends Fragment {
                 new Date(Calendar.getInstance().getTimeInMillis()),
                 mMeetingApiService.getMeetingRooms().get(1),
                 "sujet test",
-                 listTest, "30 minutes");
+                listTest, "30 minutes");
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            List<Meeting> mMeetings = mApiService.getMeetings();
-            System.out.println("////////////////MEETINGS///////////////" + mMeetings);
-            Context context = this.getContext();
-            RecyclerView recyclerView = view.findViewById(R.id.list);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            MyMeetingsRecyclerViewAdapter mAdapter = new MyMeetingsRecyclerViewAdapter(mMeetings);
-            recyclerView.setAdapter(mAdapter);
-        }
+        List<Meeting> mMeetings = mApiService.getMeetings();
+
+        System.out.println("////////////////MEETINGS///////////////" + mMeetings);
+
+        Context context = this.getContext();
+        RecyclerView recyclerView = view.findViewById(R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        MyMeetingsRecyclerViewAdapter mAdapter = new MyMeetingsRecyclerViewAdapter(mMeetings);
+        recyclerView.setAdapter(mAdapter);
 
         return view;
     }
