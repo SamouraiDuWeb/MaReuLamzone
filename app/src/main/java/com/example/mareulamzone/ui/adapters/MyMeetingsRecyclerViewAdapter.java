@@ -2,6 +2,7 @@ package com.example.mareulamzone.ui.adapters;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -28,15 +29,18 @@ import java.util.Locale;
 public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingsRecyclerViewAdapter.ViewHolder> {
 
     private final List<Meeting> mMeetings;
+    private final LayoutInflater mInflater;
     private MeetingApiService mApiService;
-    public MyMeetingsRecyclerViewAdapter(List<Meeting> items) {
+    public MyMeetingsRecyclerViewAdapter(Context context, List<Meeting> items) {
+
+        this.mInflater = LayoutInflater.from(context);
         mMeetings = items;
     }
 
     @NonNull
     @Override
     public MyMeetingsRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View view = mInflater
                 .inflate(R.layout.fragment_meetings, parent, false);
         return new ViewHolder(view);
     }
@@ -58,23 +62,17 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
         holder.name.setText(nameMeeting);
         holder.meeting_users.setText(currentMeetingUsersEmail.toString());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.itemView.setOnClickListener(v -> {
 
-                Intent intent = new Intent(v.getContext(), DetailMeetingsActivity.class);
-                intent.putExtra("currentMeeting", (Parcelable) meeting);
-                startActivity(v.getContext(), intent, null);
-            }
+            Intent intent = new Intent(v.getContext(), DetailMeetingsActivity.class);
+            intent.putExtra("currentMeeting", (Parcelable) meeting);
+            startActivity(v.getContext(), intent, null);
         });
 
-        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mApiService.removeMeeting(meeting);
-                notifyItemRemoved(holder.getAbsoluteAdapterPosition());
-                notifyItemRangeChanged(holder.getAbsoluteAdapterPosition(),getItemCount());
-            }
+        holder.mDeleteButton.setOnClickListener(v -> {
+            mApiService.removeMeeting(meeting);
+            notifyItemRemoved(holder.getAbsoluteAdapterPosition());
+            notifyItemRangeChanged(holder.getAbsoluteAdapterPosition(),getItemCount());
         });
         }
 

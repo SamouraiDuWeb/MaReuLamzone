@@ -88,6 +88,8 @@ public class AddMeetingActivity extends AppCompatActivity {
                         etSubjectMeeting.getText().toString(),
                         listEmail, meetingDuration);
 
+                System.out.println("////////////////////////////////" + mMeetingApiService.getMeetings());
+
                 Toast.makeText(AddMeetingActivity.this, "Meeting sauvegardé", Toast.LENGTH_SHORT).show();
                 finish();
             }
