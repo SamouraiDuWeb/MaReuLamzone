@@ -13,9 +13,8 @@ public class Meeting {
     private String subject;
     private List<String> users;
 
-    public Meeting(int id, String name, Date date, String duration, MeetingRoom room, String subject, List<String> users) {
+    public Meeting(int id, Date date, String duration, MeetingRoom room, String subject, List<String> users) {
         this.id = id;
-        this.name = name;
         this.date = date;
         this.duration = duration;
         this.room = room;
@@ -29,14 +28,6 @@ public class Meeting {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Date getDate() {

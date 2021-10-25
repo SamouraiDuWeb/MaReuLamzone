@@ -1,4 +1,4 @@
-package com.example.mareulamzone.ui;
+package com.example.mareulamzone.ui.Activities;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -7,9 +7,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mareulamzone.R;
+import com.example.mareulamzone.di.DI;
 import com.example.mareulamzone.model.Meeting;
+import com.example.mareulamzone.service.MeetingApiService;
 
 public class DetailMeetingsActivity extends AppCompatActivity {
+
+    private MeetingApiService apiService = DI.getMeetingApiService();
 
     private ImageView itemListColor;
     private TextView tvDetailMeetingRoom;
@@ -24,17 +28,20 @@ public class DetailMeetingsActivity extends AppCompatActivity {
         setContentView(R.layout.detail_meetings_activity);
         initView();
         Bundle extras = getIntent().getExtras();
-        meeting = (Meeting) extras.get("currentMeeting");
-        initInfos(meeting);
+        int id = (int) extras.get("currentMeeting");
+
+        initInfos(id);
     }
 
-    private void initInfos(Meeting meeting) {
+    private void initInfos(int id) {
 
-        tvDetailMeetingRoom.setText(meeting.getRoom().toString());
+        meeting = apiService.getMeeting(id);
+
+        tvDetailMeetingRoom.setText(meeting.getRoom().getName());
         tvDetailMeetingSubject.setText(meeting.getSubject());
-        tvDetailMeetingDate.setText(meeting.getDate().toString());
         tvDetailMeetingDuration.setText(meeting.getDuration());
 
+        tvDetailMeetingDate.setText(meeting.getDate().toString());
     }
 
     private void initView() {

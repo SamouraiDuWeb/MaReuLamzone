@@ -37,8 +37,8 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     public Meeting getMeeting(int id) {
-        for(int i = 0; i < meetings.size(); i++){
-            if(meetings.get(i).getId() == id){
+        for (int i = 0; i < meetings.size(); i++) {
+            if (meetings.get(i).getId() == id) {
                 return meetings.get(i);
             }
         }
@@ -47,15 +47,15 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     public List<String> getAllEmails() {
         ArrayList<String> emails = new ArrayList<>();
-        for(int i = 0; i < users.size(); i++){
+        for (int i = 0; i < users.size(); i++) {
             emails.add(users.get(i).getEmail());
         }
         return emails;
     }
 
-    public User getUser(String email){
-        for(int i = 0; i < users.size(); i++){
-            if(users.get(i).getEmail().equals(email)){
+    public User getUser(String email) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getEmail().equals(email)) {
                 return users.get(i);
             }
         }
@@ -63,9 +63,44 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public void createMeeting(int id, String name, Date date, MeetingRoom room, String subject, List<String> users, String duration) {
+    public void createMeeting(int id, Date date, MeetingRoom room, String subject, List<String> users, String duration) {
 
-        Meeting meeting = new Meeting(id, name, date, duration, room, subject, users);
+        Meeting meeting = new Meeting(id, date, duration, room, subject, users);
         meetings.add(meeting);
+    }
+
+    public List<Meeting> filterMeetingRoomIdList(List<Integer> ids) {
+        ArrayList<Meeting> meetingWithFilterRooms = new ArrayList<>();
+        for (Meeting meeting : meetings) {
+            for (int id : ids) {
+                if (meeting.getRoom().getId() == id)
+                    meetingWithFilterRooms.add(meeting);
+            }
+        }
+        return meetingWithFilterRooms;
+    }
+
+    public List<Meeting> filterMeetingRoomId(long id){
+        ArrayList<Meeting> meetingWithFilterRooms = new ArrayList<>();
+        for(Meeting meeting : meetings) {
+            if(meeting.getRoom().getId() == id )
+                meetingWithFilterRooms.add(meeting);
+        }
+        return meetingWithFilterRooms;
+    }
+
+    public List<Meeting> filterMeetingDate(int year, int month, int day){
+        ArrayList<Meeting> meetingWithFilterDate = new ArrayList<>();
+        int year2, month2, day2;
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        for(int i = 0; i < meetings.size(); i++){
+            cal.setTime(meetings.get(i).getDate());
+            year2 = cal.get(Calendar.YEAR); month2 = cal.get(Calendar.MONTH); day2 = cal.get(Calendar.DAY_OF_MONTH);
+            if(year == year2 && month == month2 && day == day2){
+                meetingWithFilterDate.add(meetings.get(i));
+
+            }
+        }
+        return meetingWithFilterDate;
     }
 }

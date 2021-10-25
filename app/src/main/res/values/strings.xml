@@ -11,4 +11,8 @@
     <string name="cr_er_la_r_union">Créer la réunion</string>
     <string name="dur_e_de_la_r_union">Durée de la réunion</string>
     <string name="email_du_nouveau_participant">Email du nouveau participant</string>
+    <string name="filter">Filtres</string>
+    <string name="by_room">Par Salle</string>
+    <string name="by_date">Par Date</string>
+    <string name="reinit">Par Defaut</string>
 </resources>

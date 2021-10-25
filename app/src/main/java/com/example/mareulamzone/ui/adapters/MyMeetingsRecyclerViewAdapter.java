@@ -4,7 +4,6 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import com.example.mareulamzone.R;
 import com.example.mareulamzone.di.DI;
 import com.example.mareulamzone.model.Meeting;
 import com.example.mareulamzone.service.MeetingApiService;
-import com.example.mareulamzone.ui.DetailMeetingsActivity;
+import com.example.mareulamzone.ui.Activities.DetailMeetingsActivity;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -56,7 +55,7 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
         DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.FRANCE);
         String strDate = dateFormat.format(date);
 
-        String nameMeeting = meeting.getName() + " - " + strDate + " - " + meeting.getSubject();
+        String nameMeeting = meeting.getSubject() + " - " + strDate + " - " + meeting.getRoom().getName();
 
         List currentMeetingUsersEmail = meeting.getUsers();
 
@@ -66,7 +65,7 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
         holder.itemView.setOnClickListener(v -> {
 
             Intent intent = new Intent(v.getContext(), DetailMeetingsActivity.class);
-            intent.putExtra("currentMeeting", (Parcelable) meeting);
+            intent.putExtra("currentMeeting", meeting.getId());
             startActivity(v.getContext(), intent, null);
         });
 

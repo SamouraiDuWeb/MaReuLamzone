@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/item_list_color"
+        android:id="@+id/item_details_color"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/ic_baseline_circle_24"
@@ -25,7 +25,7 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_list_color" />
+        app:layout_constraintTop_toBottomOf="@+id/item_details_color" />
 
     <TextView
         android:id="@+id/tv_detail_meeting_subject"

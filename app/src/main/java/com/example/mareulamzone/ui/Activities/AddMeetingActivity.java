@@ -1,7 +1,8 @@
-package com.example.mareulamzone.ui;
+package com.example.mareulamzone.ui.Activities;
 
 import static com.example.mareulamzone.service.LamzoneGenerator.USERS;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -82,16 +83,17 @@ public class AddMeetingActivity extends AppCompatActivity {
             // check user entries and add event to list
             if (checkUserEntries()) {
                 mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
-                        etSubjectMeeting.getText().toString(),
                         submitDate,
                         meetingRoomChoose,
                         etSubjectMeeting.getText().toString(),
-                        listEmail, meetingDuration);
+                        listEmail,
+                        meetingDuration);
 
                 System.out.println("////////////////////////////////" + mMeetingApiService.getMeetings());
 
                 Toast.makeText(AddMeetingActivity.this, "Meeting sauvegardé", Toast.LENGTH_SHORT).show();
-                finish();
+                Intent intent = new Intent(AddMeetingActivity.this, MeetingsActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -122,7 +124,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                meetingDuration = "30 minutes";
             }
         });
     }
@@ -226,7 +228,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                meetingRoomChoose = mMeetingApiService.getMeetingRooms().get(0);
             }
         });
     }

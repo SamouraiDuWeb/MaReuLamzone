@@ -46,12 +46,10 @@ public abstract class LamzoneGenerator {
             new User (10, "Price Steele", "mattis.semper@mollisnon.ca")
     );
 
-    public static List<Meeting> MEETINGS = Arrays.asList(
-//            new Meeting(1, "Example Réunion", new Date(), "30 minutes", MEETINGROOMS.get(1), "Weekly",new ArrayList<String>(li))
-    );
+    public static List<User> MEETINGS = Arrays.asList();
 
     static List<Meeting> generateMeetings() {
-        return new ArrayList<>(MEETINGS);
+        return new ArrayList<>();
     }
 
     static List<MeetingRoom> generateMeetingRooms() {

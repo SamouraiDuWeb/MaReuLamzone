@@ -20,7 +20,11 @@ public interface MeetingApiService {
 
     Meeting getMeeting(int id);
 
-    User getUser(String email);
+    void createMeeting(int id, Date date, MeetingRoom room, String subject, List<String> users, String duration);
 
-    void createMeeting(int id, String name, Date date, MeetingRoom room, String subject, List<String> users, String duration);
+    List<Meeting> filterMeetingRoomIdList(List<Integer> ids);
+
+    List<Meeting> filterMeetingRoomId(long id);
+
+    List<Meeting> filterMeetingDate(int year, int month, int day);
 }

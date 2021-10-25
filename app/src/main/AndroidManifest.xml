@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.MeetingsActivity"
+            android:name=".ui.Activities.MeetingsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.AddMeetingActivity"
+            android:name=".ui.Activities.AddMeetingActivity"
             android:label="Ajout d'une Réunion" />
+        <activity
+            android:name=".ui.Activities.DetailMeetingsActivity"
+            android:label="Detail d'une Réunion" />
     </application>
 
 </manifest>
