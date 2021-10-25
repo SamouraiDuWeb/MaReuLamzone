@@ -31,6 +31,7 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
     private final List<Meeting> mMeetings;
     private final LayoutInflater mInflater;
     private MeetingApiService mApiService;
+
     public MyMeetingsRecyclerViewAdapter(Context context, List<Meeting> items) {
 
         this.mInflater = LayoutInflater.from(context);
@@ -72,13 +73,13 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
         holder.mDeleteButton.setOnClickListener(v -> {
             mApiService.removeMeeting(meeting);
             notifyItemRemoved(holder.getAbsoluteAdapterPosition());
-            notifyItemRangeChanged(holder.getAbsoluteAdapterPosition(),getItemCount());
+            notifyItemRangeChanged(holder.getAbsoluteAdapterPosition(), getItemCount());
         });
-        }
+    }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mMeetings.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

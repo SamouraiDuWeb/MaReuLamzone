@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,6 +61,7 @@ public class MeetingsFragment extends Fragment {
                 listTest, "30 minutes");
 
         // Set the adapter
+
         List<Meeting> mMeetings = mApiService.getMeetings();
 
         System.out.println("////////////////MEETINGS///////////////" + mMeetings);
@@ -71,4 +74,20 @@ public class MeetingsFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        List<Meeting> mMeetings = mApiService.getMeetings();
+
+        System.out.println("////////////////MEETINGS///////////////" + mMeetings);
+
+        Context context = this.getContext();
+        RecyclerView recyclerView = view.findViewById(R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        MyMeetingsRecyclerViewAdapter mAdapter = new MyMeetingsRecyclerViewAdapter(context, mMeetings);
+        recyclerView.setAdapter(mAdapter);
+    }
+
 }
