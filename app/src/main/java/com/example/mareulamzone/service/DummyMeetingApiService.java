@@ -80,7 +80,9 @@ public class DummyMeetingApiService implements MeetingApiService {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         for(int i = 0; i < meetings.size(); i++){
             cal.setTime(meetings.get(i).getDate());
-            year2 = cal.get(Calendar.YEAR); month2 = cal.get(Calendar.MONTH); day2 = cal.get(Calendar.DAY_OF_MONTH);
+            year2 = cal.get(Calendar.YEAR);
+            month2 = cal.get(Calendar.MONTH);
+            day2 = cal.get(Calendar.DAY_OF_MONTH);
             if(year == year2 && month == month2 && day == day2){
                 meetingWithFilterDate.add(meetings.get(i));
 

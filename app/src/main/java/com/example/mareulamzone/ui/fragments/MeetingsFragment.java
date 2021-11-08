@@ -65,11 +65,11 @@ public class MeetingsFragment extends Fragment {
         listTest.add("jean");
         listTest.add("random");
 
-        mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
-                new Date(Calendar.getInstance().getTimeInMillis()),
-                mMeetingApiService.getMeetingRooms().get(1),
-                "sujet test",
-                listTest, "30 minutes");
+//        mMeetingApiService.createMeeting(mMeetingApiService.getMeetings().size() + 1,
+//                new Date(Calendar.getInstance().getTimeInMillis()),
+//                mMeetingApiService.getMeetingRooms().get(1),
+//                "sujet test",
+//                listTest, "30 minutes");
 
         initFilter(0);
 

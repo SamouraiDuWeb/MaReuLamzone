@@ -20,11 +20,13 @@ import android.content.Context;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -57,9 +59,14 @@ public class ExampleInstrumentedTest {
 
     private MeetingApiService mApiService;
 
+    @Rule
+    public ActivityTestRule<MeetingsActivity> mActivityRule =
+            new ActivityTestRule<>(MeetingsActivity.class);
+
     @Before
     public void setUp() {
-
+        MeetingsActivity mActivity = mActivityRule.getActivity();
+        assertThat(mActivity, notNullValue());
         mApiService = DI.getMeetingApiService();
     }
 
@@ -78,21 +85,11 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void myMeetingList_deleteAction_shouldRemoveItem() {
-        Date testDate = new Date(System.currentTimeMillis());
-
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < USERS.size(); i++) {
-            list.add(USERS.get(i).getEmail());
-        }
-
-        mApiService.createMeeting(mApiService.getMeetings().size() + 1,
-                testDate,
-                mApiService.getMeetingRooms().get(3),
-                "Test meeting" + mApiService.getMeetings().size(),
-                list,
-                "30 minutes");
 
         int size = mApiService.getMeetings().size();
+
+        addNewMeetingWithSuccess();
+
         onView(withId(R.id.list)).check(withItemCount(size));
         onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
         onView(withId(R.id.list)).check(withItemCount(size - 1));
@@ -105,8 +102,9 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.sp_meeting_room)).perform(click());
         onData(anything()).atPosition(1).perform(click());
         onView(withId(R.id.et_subject_meeting)).perform(click()).perform(typeText("TestSubject"));
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(scrollTo(), PickerActions.setDate(2021,11, 18));
-        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(scrollTo(), PickerActions.setTime(12, 50));
+        Espresso.closeSoftKeyboard();
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2021,11, 18));
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(scrollTo(), PickerActions.setTime(11, 50));
         onView(withId(R.id.sp_meeting_duration)).perform(scrollTo(), click());
         onData(anything()).atPosition(2).perform(click());
         onView(withId(R.id.sp_add_user_to_meeting)).perform(scrollTo(), click());
@@ -116,7 +114,7 @@ public class ExampleInstrumentedTest {
         onData(anything()).atPosition(2).perform(click());
         onView(withId(R.id.btn_add_user)).perform(scrollTo(), click());
         onView(withId(R.id.btn_add_meeting)).perform(scrollTo(), click());
-        onView(withId(R.id.container)).check(withItemCount(size + 1));
+        onView(withId(R.id.list)).check(withItemCount(size + 1));
     }
 
     @Test
@@ -164,12 +162,12 @@ public class ExampleInstrumentedTest {
         onView(ViewMatchers.withText("Par Date")).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(1970,1, 19));
         onView(withText("OK")).perform(click());
-        onView(withId(R.id.container)).check(withItemCount(1));
+        onView(withId(R.id.list)).check(withItemCount(1));
     }
 
     @Test
     public void detailsActivityLaunchedWithSuccess() {
-        onView(withId(R.id.container)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
         onView(withId(R.id.tv_detail_meeting_subject)).check(matches(isDisplayed()));
     }
 
