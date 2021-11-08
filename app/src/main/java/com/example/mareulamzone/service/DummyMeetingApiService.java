@@ -5,14 +5,16 @@ import com.example.mareulamzone.model.MeetingRoom;
 import com.example.mareulamzone.model.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
 public class DummyMeetingApiService implements MeetingApiService {
 
-    private List<Meeting> meetings = LamzoneGenerator.generateMeetings();
+    private List<Meeting> meetings = new ArrayList<>();
     private List<MeetingRoom> rooms = LamzoneGenerator.generateMeetingRooms();
     private List<User> users = LamzoneGenerator.generateUsers();
 
@@ -40,23 +42,6 @@ public class DummyMeetingApiService implements MeetingApiService {
         for (int i = 0; i < meetings.size(); i++) {
             if (meetings.get(i).getId() == id) {
                 return meetings.get(i);
-            }
-        }
-        return null;
-    }
-
-    public List<String> getAllEmails() {
-        ArrayList<String> emails = new ArrayList<>();
-        for (int i = 0; i < users.size(); i++) {
-            emails.add(users.get(i).getEmail());
-        }
-        return emails;
-    }
-
-    public User getUser(String email) {
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getEmail().equals(email)) {
-                return users.get(i);
             }
         }
         return null;

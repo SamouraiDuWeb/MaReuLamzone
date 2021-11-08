@@ -1,12 +1,16 @@
 package com.example.mareulamzone.ui.adapters;
 
+import static android.app.PendingIntent.getActivity;
 import static androidx.core.content.ContextCompat.startActivity;
+
+import static java.security.AccessController.getContext;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,10 +61,18 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
 
         String nameMeeting = meeting.getSubject() + " - " + strDate + " - " + meeting.getRoom().getName();
 
-        List currentMeetingUsersEmail = meeting.getUsers();
+        List<String> currentMeetingUsersEmail = meeting.getUsers();
+
+        StringBuilder u_Mail = new StringBuilder();
+        for (String u_mail: currentMeetingUsersEmail){
+            u_Mail.append(u_mail);
+            u_Mail.append(",");
+
+        }
+        holder.meetingUsers.setText(u_Mail);
+
 
         holder.name.setText(nameMeeting);
-        holder.meeting_users.setText(currentMeetingUsersEmail.toString());
 
         holder.itemView.setOnClickListener(v -> {
 
@@ -82,7 +94,7 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, meeting_users;
+        TextView name, meetingUsers;
         ImageView image;
         ImageButton mDeleteButton;
 
@@ -91,7 +103,7 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
             name = view.findViewById(R.id.item_list_name);
             image = view.findViewById(R.id.item_list_color);
             mDeleteButton = view.findViewById(R.id.item_list_delete_button);
-            meeting_users = view.findViewById(R.id.item_list_user);
+            meetingUsers = view.findViewById(R.id.item_list_user);
         }
     }
 
