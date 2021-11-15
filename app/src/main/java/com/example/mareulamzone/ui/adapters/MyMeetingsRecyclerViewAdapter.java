@@ -63,14 +63,8 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
 
         List<String> currentMeetingUsersEmail = meeting.getUsers();
 
-        StringBuilder u_Mail = new StringBuilder();
-        for (String u_mail: currentMeetingUsersEmail){
-            u_Mail.append(u_mail);
-            u_Mail.append(",");
-
-        }
+        String u_Mail = String.join(", ", currentMeetingUsersEmail);
         holder.meetingUsers.setText(u_Mail);
-
 
         holder.name.setText(nameMeeting);
 

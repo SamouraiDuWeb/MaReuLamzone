@@ -86,12 +86,13 @@ public class ExampleInstrumentedTest {
     @Test
     public void myMeetingList_deleteAction_shouldRemoveItem() {
 
-        int size = mApiService.getMeetings().size();
 
         addNewMeetingWithSuccess();
 
+        int size = mApiService.getMeetings().size();
+
         onView(withId(R.id.list)).check(withItemCount(size));
-        onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
+        onView(withId(R.id.item_list_delete_button)).perform(click());
         onView(withId(R.id.list)).check(withItemCount(size - 1));
     }
 
@@ -119,19 +120,8 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void filterRoomWithSuccess() {
-        Date testDate = new Date(System.currentTimeMillis());
 
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < USERS.size(); i++) {
-            list.add(USERS.get(i).getEmail());
-        }
-
-        mApiService.createMeeting(mApiService.getMeetings().size() + 1,
-                testDate,
-                mApiService.getMeetingRooms().get(2),
-                "Test meeting" + mApiService.getMeetings().size(),
-                list,
-                "30 minutes");
+        addNewMeetingWithSuccess();
 
         onView(withId(R.id.filter_meeting)).perform(click());
         onView(ViewMatchers.withText("Par Salle")).perform(click());

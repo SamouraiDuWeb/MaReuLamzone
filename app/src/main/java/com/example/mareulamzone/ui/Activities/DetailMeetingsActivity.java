@@ -15,6 +15,7 @@ import com.example.mareulamzone.service.MeetingApiService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DetailMeetingsActivity extends AppCompatActivity {
 
@@ -55,15 +56,7 @@ public class DetailMeetingsActivity extends AppCompatActivity {
 
         List<String> currentMeetingUsersEmail = meeting.getUsers();
 
-        StringBuilder u_Mail = new StringBuilder();
-        for (String u_mail: currentMeetingUsersEmail){
-            if (u_mail.equals("")){
-                u_Mail.append(u_mail);
-            } else {
-                u_Mail.append(", ");
-                u_Mail.append(u_mail);
-            }
-        }
+        String u_Mail = String.join(", ", currentMeetingUsersEmail);
         tvDetailMeetingUsers.setText(u_Mail);
 
     }
