@@ -6,7 +6,6 @@ import java.util.List;
 public class Meeting {
 
     private int id;
-    private String name;
     private Date date;
     private String duration;
     private MeetingRoom room;
