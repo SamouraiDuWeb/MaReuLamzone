@@ -7,6 +7,7 @@ import static java.security.AccessController.getContext;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareulamzone.R;
@@ -49,6 +51,7 @@ public class MyMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetin
         return new ViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull MyMeetingsRecyclerViewAdapter.ViewHolder holder, int position) {
 

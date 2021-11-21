@@ -1,10 +1,12 @@
 package com.example.mareulamzone.ui.Activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mareulamzone.R;
@@ -29,6 +31,7 @@ public class DetailMeetingsActivity extends AppCompatActivity {
     private Meeting meeting;
     private TextView tvDetailMeetingUsers;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,7 @@ public class DetailMeetingsActivity extends AppCompatActivity {
         initInfos(id);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void initInfos(int id) {
 
         meeting = apiService.getMeeting(id);
