@@ -21,16 +21,16 @@ import java.util.ListIterator;
 public abstract class LamzoneGenerator {
 
     public static List<MeetingRoom> MEETINGROOMS = Arrays.asList(
-            new MeetingRoom(1, "Salle 01", R.color.salle_01),
-            new MeetingRoom(2, "Salle 02", R.color.salle_02),
-            new MeetingRoom(3, "Salle 03", R.color.salle_03),
-            new MeetingRoom(4, "Salle 04", R.color.salle_04),
-            new MeetingRoom(5, "Salle 05", R.color.salle_05),
-            new MeetingRoom(6, "Salle 06", R.color.salle_06),
-            new MeetingRoom(7, "Salle 07", R.color.salle_07),
-            new MeetingRoom(8, "Salle 08", R.color.salle_08),
-            new MeetingRoom(9, "Salle 09", R.color.salle_09),
-            new MeetingRoom(10, "Salle 10", R.color.salle_10)
+            new MeetingRoom(1, "Salle 01"),
+            new MeetingRoom(2, "Salle 02"),
+            new MeetingRoom(3, "Salle 03"),
+            new MeetingRoom(4, "Salle 04"),
+            new MeetingRoom(5, "Salle 05"),
+            new MeetingRoom(6, "Salle 06"),
+            new MeetingRoom(7, "Salle 07"),
+            new MeetingRoom(8, "Salle 08"),
+            new MeetingRoom(9, "Salle 09"),
+            new MeetingRoom(10, "Salle 10")
     );
 
     public static List<User> USERS = Arrays.asList(

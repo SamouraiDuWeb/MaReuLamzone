@@ -4,12 +4,10 @@ public class MeetingRoom {
 
     private int id;
     private String name;
-    private int color;
 
-    public MeetingRoom(int id, String name, int color) {
+    public MeetingRoom(int id, String name) {
         this.id = id;
         this.name = name;
-        this.color = color;
     }
 
     public int getId() {
@@ -26,13 +24,5 @@ public class MeetingRoom {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
     }
 }
