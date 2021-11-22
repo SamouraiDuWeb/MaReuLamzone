@@ -17,6 +17,7 @@ import com.example.mareulamzone.service.MeetingApiService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -114,7 +115,9 @@ public class MareulamzoneUnitTest {
 
     @Test
     public void filterMeetingRoomIdWithSuccess() {
-        List<Meeting> meetings = service.filterMeetingRoomIdList(service.getMeetingRooms().get(0).getId());
+
+        List <Integer> roomList = Collections.singletonList(service.getMeetingRooms().get(0).getId());
+        List<Meeting> meetings = service.filterMeetingRoomIdList(roomList);
         for(Meeting meeting : meetings){
             for (MeetingRoom room : service.getMeetingRooms()){
                 if (room == service.getMeetingRooms().get(0)){
