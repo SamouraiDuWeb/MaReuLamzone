@@ -24,7 +24,5 @@ public interface MeetingApiService {
 
     List<Meeting> filterMeetingRoomIdList(List<Integer> ids);
 
-    List<Meeting> filterMeetingRoomId(long id);
-
     List<Meeting> filterMeetingDate(int year, int month, int day);
 }

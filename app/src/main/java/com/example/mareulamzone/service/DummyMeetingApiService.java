@@ -65,15 +65,6 @@ public class DummyMeetingApiService implements MeetingApiService {
         return meetingWithFilterRooms;
     }
 
-    public List<Meeting> filterMeetingRoomId(long id){
-        ArrayList<Meeting> meetingWithFilterRooms = new ArrayList<>();
-        for(Meeting meeting : meetings) {
-            if(meeting.getRoom().getId() == id )
-                meetingWithFilterRooms.add(meeting);
-        }
-        return meetingWithFilterRooms;
-    }
-
     public List<Meeting> filterMeetingDate(int year, int month, int day){
         ArrayList<Meeting> meetingWithFilterDate = new ArrayList<>();
         int year2, month2, day2;

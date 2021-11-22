@@ -114,7 +114,7 @@ public class MareulamzoneUnitTest {
 
     @Test
     public void filterMeetingRoomIdWithSuccess() {
-        List<Meeting> meetings = service.filterMeetingRoomId(service.getMeetingRooms().get(0).getId());
+        List<Meeting> meetings = service.filterMeetingRoomIdList(service.getMeetingRooms().get(0).getId());
         for(Meeting meeting : meetings){
             for (MeetingRoom room : service.getMeetingRooms()){
                 if (room == service.getMeetingRooms().get(0)){
